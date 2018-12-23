@@ -5,7 +5,7 @@
 	<groupId>com.probst</groupId>
 	<artifactId>env-sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -13,7 +13,7 @@
 		<version.javaee>7.0</version.javaee>
 	</properties>
 	<build>
-		<finalName>env-sample</finalName>
+		<finalName>env-sample-${version}</finalName>
 	</build>
 	<dependencies>
 		<dependency>
