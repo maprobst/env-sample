@@ -8,3 +8,4 @@ RUN yum update -y \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
 ENV PATH "$PATH":/${JAVA_HOME}/bin:.:
 COPY target/env-sample-0.0.1-SNAPSHOT.jar /usr/src/env-sample-0.0.1-SNAPSHOT.jar
+CMD java -cp /usr/src/env-sample-0.0.1-SNAPSHOT.jar com.probstl.StartEnv
