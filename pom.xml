@@ -45,4 +45,70 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	
+	 <profiles>
+        <profile>
+            <id>dockerimage</id>
+            <dependencies>
+                <!--
+                    Here you declare dependencies to additional artifacts that
+                    are to be copied into the Docker image.
+                    No need to add a dependency to the Spring Boot application JAR
+                    file here.
+                -->
+            </dependencies>
+            <properties>
+                <!-- Name of Docker image that will be built. -->
+                <docker.image.name>env-docker-imager</docker.image.name>
+                <!--
+                    Directory that holds Docker file and static content
+                    necessary to build the Docker image.
+                -->
+                <docker.image.src.root>src/main/resources</docker.image.src.root>
+                <!--
+                    Directory to which the Docker image artifacts and the Docker
+                    file will be copied to and which will serve as the root directory
+                    when building the Docker image.
+                -->
+                <docker.build.directory>${project.build.directory}/dockerimgbuild</docker.build.directory>
+                <!-- URL to the Docker host used to build the Docker image. -->
+                <docker.host>tcp://192.168.10.118:2375</docker.host>
+
+                <!-- Name of the Dockerfile the Docker image will be built from. -->
+                <docker.file.name>Dockerfile</docker.file.name>
+            </properties>
+            <build>
+                <plugins>
+ 
+
+                    <!--
+                        Build the Docker image.
+                    -->
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.28.0</version>
+                        <configuration>
+                            <dockerHost>${docker.host}</dockerHost>
+                            <startParallel>false</startParallel>
+                            <images>
+                                <image>
+                                    <name>${docker.image.name}</name>
+                                    <build>
+                                        <tags>
+                                           <!--  <tag>${project.version}</tag>--> 
+                                            <tag>latest</tag>
+                                        </tags>
+                                       <!-- <dockerFile>${docker.build.directory}/${docker.file.name}</dockerFile>-->
+                                        <dockerFile>${project.basedir}/Dockerfile</dockerFile >
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+    </profiles>
 </project>
